@@ -2,7 +2,15 @@ const resizer = document.getElementById("canvas-size");
 const resizerLabel = document.getElementById("size-label");
 const canvas = document.getElementById("canvas");
 
+console.log(resizer.value);
+
 resizer.addEventListener("input", (event) => canvasResizer(event.target.value));
+
+defaultCanvas(16);
+
+function defaultCanvas(defaultValue) {
+  createNewTiles(defaultValue);
+}
 
 function canvasResizer(sizeValue) {
   changeResizerLabel(sizeValue);
