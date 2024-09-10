@@ -18,7 +18,6 @@
 
 body {
   min-height: 100dvh;
-  border: 6px solid rgb(195, 0, 255);
 }
 
 .flex-row {
@@ -55,6 +54,11 @@ div#canvas {
   flex-flow: column wrap;
 }
 
-div.tiles {
-  border: 2px solid rgb(146, 146, 146);
+div.canvas-tiles {
+  /* border: 0.5px solid rgb(146, 146, 146); */
+  background-color: rgb(255, 255, 255);
+}
+
+div.canvas-tiles:hover {
+  background-color: rgb(231, 227, 227);
 }

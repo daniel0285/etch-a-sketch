@@ -1,18 +1,42 @@
-const resizer = document.getElementById("canvas-size");
 const resizerLabel = document.getElementById("size-label");
+const resizer = document.getElementById("canvas-size");
+const colorPicker = document.getElementById("color-picker");
 const canvas = document.getElementById("canvas");
+const canvasTiles = document.querySelectorAll(".canvas-tiles");
+const deleteOption = document.getElementById("delete");
 
-console.log(resizer.value);
+console.log(deleteOption);
 
-resizer.addEventListener("input", (event) => canvasResizer(event.target.value));
+resizer.addEventListener("input", (event) => changeCanvas(event.target.value));
+canvas.addEventListener("mousedown", (event) => startDrawing(event));
+canvas.addEventListener("mouseup", (event) => stopDrawing(event));
+canvas.addEventListener("click", (event) => eraser(event));
+deleteOption.addEventListener("click", () => console.log(deleteOption.checked));
 
-defaultCanvas(16);
+function fillTile(event) {
+  event.target.style.backgroundColor = penColor();
+}
+
+function startDrawing(event) {
+  const tile = document.querySelectorAll(".canvas-tiles");
+  event.preventDefault();
+  tile.forEach((tile) => tile.addEventListener("mouseover", fillTile));
+}
+
+function stopDrawing(event) {
+  const tile = document.querySelectorAll(".canvas-tiles");
+  event.preventDefault();
+  tile.forEach((tile) => tile.removeEventListener("mouseover", fillTile));
+}
 
 function defaultCanvas(defaultValue) {
+  changeResizerLabel(defaultValue);
   createNewTiles(defaultValue);
 }
 
-function canvasResizer(sizeValue) {
+defaultCanvas(16);
+
+function changeCanvas(sizeValue) {
   changeResizerLabel(sizeValue);
   clearCanvas();
   createNewTiles(sizeValue);
@@ -29,11 +53,9 @@ function changeResizerLabel(sizeValue) {
 }
 
 function createNewTiles(sizeValue) {
-  const totalTiles = sizeValue * sizeValue;
-  console.log(totalTiles);
-  for (let i = 0; i < totalTiles; i++) {
+  for (let i = 0; i < sizeValue * sizeValue; i++) {
     const newCanvasTile = document.createElement("div");
-    newCanvasTile.classList.add("tiles");
+    newCanvasTile.classList.add("canvas-tiles");
     newCanvasTile.setAttribute("style", `flex: 1 1 calc(100% / ${sizeValue});`);
     canvas.appendChild(newCanvasTile);
   }
