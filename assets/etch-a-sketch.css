@@ -55,7 +55,7 @@ div#canvas {
 }
 
 div.canvas-tiles {
-  /* border: 0.5px solid rgb(146, 146, 146); */
+  border: 0.5px solid rgb(146, 146, 146);
   background-color: rgb(255, 255, 255);
 }
 
