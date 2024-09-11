@@ -1,44 +1,57 @@
 const DEFAULT_VALUE = 16;
 
+// DOM elements
 const resizerLabel = document.getElementById("size-label");
 const resizer = document.getElementById("canvas-size");
 const colorPicker = document.getElementById("color-picker");
 const canvas = document.getElementById("canvas");
-const deleteOption = document.getElementById("delete");
+const drawingOption = document.getElementById("drawing-option");
+const isDrawPen = document.getElementById("draw");
+const isDeletePen = document.getElementById("delete");
+const isRainbowPen = document.getElementById("rainbow");
 
-console.log(deleteOption.checked);
+// Event listeners
 
 resizer.addEventListener("input", (event) => changeCanvas(event.target.value));
 canvas.addEventListener("mousedown", (event) => startDrawing(event));
 canvas.addEventListener("mouseup", (event) => stopDrawing(event));
 canvas.addEventListener("click", (event) => fillTile(event));
-deleteOption.addEventListener("click", () => console.log(deleteOption.checked));
+drawingOption.addEventListener("click", (event) => colorOptionHandler(event));
+
+// Mouse behaviors functions
 
 function fillTile(event) {
-  event.target.style.backgroundColor = rainbowColorPen();
+  if (isDrawPen.checked === true) {
+    event.target.style.backgroundColor = normalPen();
+  } else if (isDeletePen.checked === true) {
+    event.target.style.backgroundColor = erasePen();
+  } else if (isRainbowPen.checked === true) {
+    event.target.style.backgroundColor = rainbowColorPen();
+  }
 }
 
 function startDrawing(event) {
   const tile = document.querySelectorAll(".canvas-tiles");
-  event.preventDefault();
   tile.forEach((tile) => tile.addEventListener("mouseover", fillTile));
 }
 
 function stopDrawing(event) {
   const tile = document.querySelectorAll(".canvas-tiles");
-  event.preventDefault();
   tile.forEach((tile) => tile.removeEventListener("mouseover", fillTile));
 }
 
-function eraseTile(event) {
-  event.target.style.backgroundColor = "white";
-}
+// Pen options
 
-function penColor() {
+function normalPen() {
   return colorPicker.value;
 }
 
-function rainbowColorPen(event) {
+function erasePen() {
+  let eraseColor = "white";
+  return eraseColor;
+}
+
+function rainbowColorPen() {
   const rainbowColors = [
     "#FF0000", // Red
     "#FF7F00", // Orange
@@ -50,10 +63,27 @@ function rainbowColorPen(event) {
   ];
   let randomNumber = Math.floor(Math.random() * 6);
   let randomColor = rainbowColors[randomNumber];
-  // event.target.style.backgroundColor = randomColor;
   return randomColor;
 }
-console.log(rainbowColorPen);
+
+function colorOptionHandler(event) {
+  isDrawPen.checked = false;
+  isDeletePen.checked = false;
+  isRainbowPen.checked = false;
+
+  if (event.target.id === "draw") {
+    isDrawPen.checked = true;
+  } else if (event.target.id === "delete") {
+    isDeletePen.checked = true;
+  } else if (event.target.id === "rainbow") {
+    isRainbowPen.checked = true;
+  } else {
+    console.log("Invalid choice");
+    return;
+  }
+}
+
+// Canvas & Tiles functions
 
 function defaultCanvas(defaultValue) {
   changeResizerLabel(defaultValue);
