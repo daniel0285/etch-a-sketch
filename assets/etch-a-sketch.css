@@ -5,7 +5,8 @@
   --sml-fs: 1em;
 
   /* Color */
-  --border: rgb(5, 5, 5);
+  --border-color: rgb(5, 5, 5);
+  --hover-color: rgb(193, 193, 193);
 }
 
 * {
@@ -49,7 +50,7 @@ main#etch-body {
 div#canvas {
   height: 500px;
   width: 500px;
-  border: 3px solid var(--border);
+  border: 3px solid var(--border-color);
   display: flex;
   flex-flow: column wrap;
 }
@@ -60,5 +61,199 @@ div.canvas-tiles {
 }
 
 div.canvas-tiles:hover {
-  background-color: rgb(231, 227, 227);
+  background-color: var(--hover-color);
+}
+
+/* canvas size from 1x1 to 64x64 */
+.canvas-size-1x1 {
+  flex: 1 1 calc(100% / 1);
+}
+.canvas-size-2x2 {
+  flex: 1 1 calc(100% / 2);
+}
+.canvas-size-3x3 {
+  flex: 1 1 calc(100% / 3);
+}
+.canvas-size-4x4 {
+  flex: 1 1 calc(100% / 4);
+}
+.canvas-size-5x5 {
+  flex: 1 1 calc(100% / 5);
+}
+.canvas-size-6x6 {
+  flex: 1 1 calc(100% / 6);
+}
+.canvas-size-7x7 {
+  flex: 1 1 calc(100% / 7);
+}
+.canvas-size-8x8 {
+  flex: 1 1 calc(100% / 8);
+}
+.canvas-size-9x9 {
+  flex: 1 1 calc(100% / 9);
+}
+.canvas-size-10x10 {
+  flex: 1 1 calc(100% / 10);
+}
+.canvas-size-11x11 {
+  flex: 1 1 calc(100% / 11);
+}
+.canvas-size-12x12 {
+  flex: 1 1 calc(100% / 12);
+}
+.canvas-size-13x13 {
+  flex: 1 1 calc(100% / 13);
+}
+.canvas-size-14x14 {
+  flex: 1 1 calc(100% / 14);
+}
+.canvas-size-15x15 {
+  flex: 1 1 calc(100% / 15);
+}
+.canvas-size-16x16 {
+  flex: 1 1 calc(100% / 16);
+}
+.canvas-size-17x17 {
+  flex: 1 1 calc(100% / 17);
+}
+.canvas-size-18x18 {
+  flex: 1 1 calc(100% / 18);
+}
+.canvas-size-19x19 {
+  flex: 1 1 calc(100% / 19);
+}
+.canvas-size-20x20 {
+  flex: 1 1 calc(100% / 20);
+}
+.canvas-size-21x21 {
+  flex: 1 1 calc(100% / 21);
+}
+.canvas-size-22x22 {
+  flex: 1 1 calc(100% / 22);
+}
+.canvas-size-23x23 {
+  flex: 1 1 calc(100% / 23);
+}
+.canvas-size-24x24 {
+  flex: 1 1 calc(100% / 24);
+}
+.canvas-size-25x25 {
+  flex: 1 1 calc(100% / 25);
+}
+.canvas-size-26x26 {
+  flex: 1 1 calc(100% / 26);
+}
+.canvas-size-27x27 {
+  flex: 1 1 calc(100% / 27);
+}
+.canvas-size-28x28 {
+  flex: 1 1 calc(100% / 28);
+}
+.canvas-size-29x29 {
+  flex: 1 1 calc(100% / 29);
+}
+.canvas-size-30x30 {
+  flex: 1 1 calc(100% / 30);
+}
+.canvas-size-31x31 {
+  flex: 1 1 calc(100% / 31);
+}
+.canvas-size-32x32 {
+  flex: 1 1 calc(100% / 32);
+}
+.canvas-size-33x33 {
+  flex: 1 1 calc(100% / 33);
+}
+.canvas-size-34x34 {
+  flex: 1 1 calc(100% / 34);
+}
+.canvas-size-35x35 {
+  flex: 1 1 calc(100% / 35);
+}
+.canvas-size-36x36 {
+  flex: 1 1 calc(100% / 36);
+}
+.canvas-size-37x37 {
+  flex: 1 1 calc(100% / 37);
+}
+.canvas-size-38x38 {
+  flex: 1 1 calc(100% / 38);
+}
+.canvas-size-39x39 {
+  flex: 1 1 calc(100% / 39);
+}
+.canvas-size-40x40 {
+  flex: 1 1 calc(100% / 40);
+}
+.canvas-size-41x41 {
+  flex: 1 1 calc(100% / 41);
+}
+.canvas-size-42x42 {
+  flex: 1 1 calc(100% / 42);
+}
+.canvas-size-43x43 {
+  flex: 1 1 calc(100% / 43);
+}
+.canvas-size-44x44 {
+  flex: 1 1 calc(100% / 44);
+}
+.canvas-size-45x45 {
+  flex: 1 1 calc(100% / 45);
+}
+.canvas-size-46x46 {
+  flex: 1 1 calc(100% / 46);
+}
+.canvas-size-47x47 {
+  flex: 1 1 calc(100% / 47);
+}
+.canvas-size-48x48 {
+  flex: 1 1 calc(100% / 48);
+}
+.canvas-size-49x49 {
+  flex: 1 1 calc(100% / 49);
+}
+.canvas-size-50x50 {
+  flex: 1 1 calc(100% / 50);
+}
+.canvas-size-51x51 {
+  flex: 1 1 calc(100% / 51);
+}
+.canvas-size-52x52 {
+  flex: 1 1 calc(100% / 52);
+}
+.canvas-size-53x53 {
+  flex: 1 1 calc(100% / 53);
+}
+.canvas-size-54x54 {
+  flex: 1 1 calc(100% / 54);
+}
+.canvas-size-55x55 {
+  flex: 1 1 calc(100% / 55);
+}
+.canvas-size-56x56 {
+  flex: 1 1 calc(100% / 56);
+}
+.canvas-size-57x57 {
+  flex: 1 1 calc(100% / 57);
+}
+.canvas-size-58x58 {
+  flex: 1 1 calc(100% / 58);
+}
+.canvas-size-59x59 {
+  flex: 1 1 calc(100% / 59);
+}
+.canvas-size-60x60 {
+  flex: 1 1 calc(100% / 60);
+}
+.canvas-size-61x61 {
+  flex: 1 1 calc(100% / 61);
+}
+.canvas-size-62x62 {
+  flex: 1 1 calc(100% / 62);
+}
+.canvas-size-63x63 {
+  flex: 1 1 calc(100% / 63);
+}
+.canvas-size-64x64 {
+  flex: 1 1 calc(100% / 64);
 }

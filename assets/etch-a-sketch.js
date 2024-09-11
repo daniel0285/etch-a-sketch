@@ -20,13 +20,13 @@ function fillTile(event) {
 
 function startDrawing(event) {
   const tile = document.querySelectorAll(".canvas-tiles");
-  // event.preventDefault();
+  event.preventDefault();
   tile.forEach((tile) => tile.addEventListener("mouseover", fillTile));
 }
 
 function stopDrawing(event) {
   const tile = document.querySelectorAll(".canvas-tiles");
-  // event.preventDefault();
+  event.preventDefault();
   tile.forEach((tile) => tile.removeEventListener("mouseover", fillTile));
 }
 
@@ -40,13 +40,13 @@ function penColor() {
 
 function rainbowColorPen(event) {
   const rainbowColors = [
-    "#FF0000",
-    "#FF7F00",
-    "#FFFF00",
-    "#00FF00",
-    "#0000FF",
-    "#4B0082",
-    "#9400D3",
+    "#FF0000", // Red
+    "#FF7F00", // Orange
+    "#FFFF00", // Yellow
+    "#00FF00", // Green
+    "#0000FF", // Blue
+    "#4B0082", // Indigo
+    "#8B00FF", // Violet
   ];
   let randomNumber = Math.floor(Math.random() * 6);
   let randomColor = rainbowColors[randomNumber];
@@ -77,11 +77,14 @@ function changeResizerLabel(sizeValue) {
 }
 
 function createNewTiles(sizeValue) {
+  let totalTiles = sizeValue * sizeValue;
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < sizeValue * sizeValue; i++) {
+  for (let i = 0; i < totalTiles; i++) {
     const newCanvasTile = document.createElement("div");
-    newCanvasTile.classList.add("canvas-tiles");
-    newCanvasTile.setAttribute("style", `flex: 1 1 calc(100% / ${sizeValue});`);
+    newCanvasTile.classList.add(
+      "canvas-tiles",
+      `canvas-size-${sizeValue}x${sizeValue}`
+    );
     fragment.appendChild(newCanvasTile);
   }
   canvas.appendChild(fragment);
