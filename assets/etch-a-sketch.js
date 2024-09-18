@@ -53,7 +53,7 @@ function normalPen() {
 }
 
 function erasePen() {
-  let eraseColor = "white";
+  let eraseColor = "rgb(255, 255, 255)";
   return eraseColor;
 }
 
@@ -109,7 +109,7 @@ function clearCanvas() {
 }
 
 function changeResizerLabel(sizeValue) {
-  resizerLabel.textContent = `Resizer: ${sizeValue} X ${sizeValue}`;
+  resizerLabel.textContent = `Size: ${sizeValue} X ${sizeValue}`;
 }
 
 function createNewTiles(sizeValue) {
