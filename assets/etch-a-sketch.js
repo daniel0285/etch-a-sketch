@@ -27,6 +27,7 @@ function fillTile(event) {
     event.target.style.backgroundColor = erasePen();
   } else if (isRainbowPen.checked === true) {
     event.target.style.backgroundColor = rainbowColorPen();
+    colorPicker.setAttribute("value", `${rainbowColorPen()}`);
   }
 }
 
