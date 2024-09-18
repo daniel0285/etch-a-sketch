@@ -4,7 +4,7 @@ const DEFAULT_VALUE = 16;
 const resizerLabel = document.getElementById("size-label");
 const resizer = document.getElementById("canvas-size");
 const colorPicker = document.getElementById("color-picker");
-const canvas = document.getElementById("canvas");
+const body = document.body;
 const drawingOption = document.getElementById("drawing-option");
 const isDrawPen = document.getElementById("draw");
 const isDeletePen = document.getElementById("delete");
@@ -13,9 +13,9 @@ const isRainbowPen = document.getElementById("rainbow");
 // Event listeners
 
 resizer.addEventListener("input", (event) => changeCanvas(event.target.value));
-canvas.addEventListener("mousedown", (event) => startDrawing(event));
-canvas.addEventListener("mouseup", (event) => stopDrawing(event));
-canvas.addEventListener("click", (event) => fillTile(event));
+body.addEventListener("mousedown", (event) => startDrawing(event));
+body.addEventListener("mouseup", (event) => stopDrawing(event));
+body.addEventListener("mousedown", drawHandler);
 drawingOption.addEventListener("click", (event) => colorOptionHandler(event));
 
 // Mouse behaviors functions
@@ -30,14 +30,20 @@ function fillTile(event) {
   }
 }
 
-function startDrawing(event) {
-  const tile = document.querySelectorAll(".canvas-tiles");
-  tile.forEach((tile) => tile.addEventListener("mouseover", fillTile));
+function drawHandler(event) {
+  if (event.target.classList.contains("canvas-tile")) {
+    fillTile(event);
+  }
 }
 
-function stopDrawing(event) {
-  const tile = document.querySelectorAll(".canvas-tiles");
-  tile.forEach((tile) => tile.removeEventListener("mouseover", fillTile));
+function startDrawing() {
+  body.addEventListener("mouseover", drawHandler);
+  console.log("start drawing");
+}
+
+function stopDrawing() {
+  body.removeEventListener("mouseover", drawHandler);
+  console.log("stop drawing");
 }
 
 // Pen options
@@ -61,7 +67,7 @@ function rainbowColorPen() {
     "#4B0082", // Indigo
     "#8B00FF", // Violet
   ];
-  let randomNumber = Math.floor(Math.random() * 6);
+  let randomNumber = Math.floor(Math.random() * rainbowColors.length);
   let randomColor = rainbowColors[randomNumber];
   return randomColor;
 }
@@ -112,7 +118,7 @@ function createNewTiles(sizeValue) {
   for (let i = 0; i < totalTiles; i++) {
     const newCanvasTile = document.createElement("div");
     newCanvasTile.classList.add(
-      "canvas-tiles",
+      "canvas-tile",
       `canvas-size-${sizeValue}x${sizeValue}`
     );
     fragment.appendChild(newCanvasTile);

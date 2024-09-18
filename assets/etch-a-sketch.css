@@ -5,7 +5,8 @@
   --sml-fs: 1em;
 
   /* Color */
-  --border-color: rgb(5, 5, 5);
+  --color-1: rgb(5, 5, 5);
+  --color-2: #f2f2f2;
   --hover-color: rgb(193, 193, 193);
 }
 
@@ -19,6 +20,7 @@
 
 body {
   min-height: 100dvh;
+  background-color: rgb(173, 255, 254);
 }
 
 .flex-row {
@@ -68,8 +70,22 @@ main#etch-body {
   width: 60px;
 } */
 
+#etch-header,
+footer {
+  padding: 15px;
+  background-color: var(--color-1);
+  color: var(--color-2);
+  width: 100%;
+}
+
+#etch-menu-container {
+  padding: 20px;
+  border: 4px solid var(--color-1);
+  border-radius: 10px;
+}
+
 #etch-canvas-container {
-  border: 10px solid var(--border-color);
+  border: 10px solid var(--color-1);
   border-radius: 1%;
   height: 100%;
 }
@@ -81,12 +97,32 @@ div#canvas {
   flex-flow: column wrap;
 }
 
-div.canvas-tiles {
+div.canvas-tile {
   background-color: rgb(255, 255, 255);
 }
 
-div.canvas-tiles:hover {
+div.canvas-tile:hover {
   background-color: var(--hover-color);
+}
+
+input.check-box {
+  visibility: hidden;
+  opacity: 0;
+}
+
+input.check-box + label {
+  color: var(--color-1);
+  cursor: pointer;
+  padding: 10px;
+  border: 2px solid var(--color-1);
+  border-radius: 5px;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
+
+input.check-box:checked + label {
+  background-color: var(--color-1);
+  color: white;
 }
 
 /* canvas size from 1x1 to 64x64 */

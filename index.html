@@ -15,13 +15,13 @@
     <main id="etch-body" class="flex-row">
         <section id="etch-menu-container" class="flex-col">
             <div class="menu-item"> <label for="color-picker">Color:</label><br>
-                <input type="color" id="color-picker"><br>
+                <input type="color" value="#ff00ff" id="color-picker"><br>
             </div>
             <div class="menu-item"> <label for="canvas-size" id="size-label">Resizer: 16 X 16</label><br>
                 <input type="range" id="canvas-size" min="1" max="64" value="16" step="1"><br>
             </div>
             <div class="menu-item">
-                <div id="drawing-option">
+                <div id="drawing-option" class="flex-col">
                     <input type="checkbox" id="draw" class="check-box" checked>
                     <label for="draw">Draw</label><br>
                     <input type="checkbox" id="delete" class="check-box">
