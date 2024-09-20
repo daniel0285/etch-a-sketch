@@ -57,7 +57,7 @@ function normalPen() {
 }
 
 function erasePen() {
-  let eraseColor = "rgb(255, 255, 255)";
+  let eraseColor = "#eeeeee";
   return eraseColor;
 }
 
