@@ -9,6 +9,7 @@ const drawingOption = document.getElementById("drawing-option");
 const isDrawPen = document.getElementById("draw");
 const isDeletePen = document.getElementById("delete");
 const isRainbowPen = document.getElementById("rainbow");
+const toggleGrid = document.getElementById("toggle-grid");
 
 // Event listeners
 
@@ -17,6 +18,7 @@ body.addEventListener("mousedown", (event) => startDrawing(event));
 body.addEventListener("mouseup", (event) => stopDrawing(event));
 body.addEventListener("mousedown", drawHandler);
 drawingOption.addEventListener("click", (event) => colorOptionHandler(event));
+toggleGrid.addEventListener("click", addGridLine);
 
 // Mouse behaviors functions
 
@@ -26,8 +28,9 @@ function fillTile(event) {
   } else if (isDeletePen.checked === true) {
     event.target.style.backgroundColor = erasePen();
   } else if (isRainbowPen.checked === true) {
-    event.target.style.backgroundColor = rainbowColorPen();
-    colorPicker.setAttribute("value", `${rainbowColorPen()}`);
+    let rainbowColor = rainbowColorPen();
+    event.target.style.backgroundColor = rainbowColor;
+    colorPicker.setAttribute("value", `${rainbowColor}`);
   }
 }
 
@@ -107,6 +110,7 @@ function clearCanvas() {
   while (canvas.firstChild) {
     canvas.firstChild.remove();
   }
+  // canvas.innerHTML = "";
 }
 
 function changeResizerLabel(sizeValue) {
@@ -125,6 +129,16 @@ function createNewTiles(sizeValue) {
     fragment.appendChild(newCanvasTile);
   }
   canvas.appendChild(fragment);
+  addGridLine();
+}
+
+function addGridLine() {
+  const tile = document.querySelectorAll(".canvas-tile");
+  if (toggleGrid.checked === true) {
+    tile.forEach((tile) => tile.classList.add("grid-line"));
+  } else {
+    tile.forEach((tile) => tile.classList.remove("grid-line"));
+  }
 }
 
 // Function invokes

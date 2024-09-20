@@ -10,7 +10,7 @@
   --color-3: #00c9d3;
   --color-4: #eeeeee;
   --canvas-color: rgb(255, 255, 255);
-  --hover-color: rgb(193, 193, 193);
+  --hover-color: rgb(206, 206, 206);
 }
 
 * {
@@ -20,6 +20,7 @@
   text-align: center;
   font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--color-4);
 }
 
 body {
@@ -58,7 +59,6 @@ main#etch-body {
 #etch-footer {
   padding: 10px;
   background-color: var(--color-1);
-  color: var(--color-4);
   width: 100%;
 }
 
@@ -76,8 +76,7 @@ main#etch-body {
   border: 4px solid var(--color-1);
   border-radius: 10px;
   background-color: var(--color-1);
-  height: 350px;
-  justify-content: space-evenly;
+  height: 400px;
 }
 
 div.menu-item {
@@ -87,7 +86,6 @@ div.menu-item {
 }
 
 .menu-item > label {
-  color: var(--color-4);
   font-weight: bold;
   font-size: var(--sml-fs);
 }
@@ -158,11 +156,10 @@ input.check-box {
 }
 
 input.check-box + label {
-  color: var(--color-2);
-  background-color: var(--color-4);
+  background-color: var(--color-1);
+  border: 2px solid var(--color-4);
   cursor: pointer;
   padding: 5px 10px;
-  border: 2px solid var(--color-4);
   border-radius: 10px;
   transition: 0.3s ease;
   font-weight: bold;
@@ -170,15 +167,80 @@ input.check-box + label {
 }
 
 input.check-box + label:hover {
-  color: var(--color-4);
-  background-color: var(--color-1);
+  color: var(--color-2);
+  background-color: var(--color-4);
   border: 2px solid var(--color-4);
 }
 
 input.check-box:checked + label {
-  color: var(--color-3);
-  background-color: var(--color-1);
+  color: var(--color-1);
+  background-color: var(--color-3);
   border: 2px solid var(--color-3);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 2px solid var(--color-4);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--color-4);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+#toggle-grid:checked + .slider {
+  background-color: var(--color-3);
+  border: 2px solid var(--color-3);
+}
+
+#toggle-grid:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+#toggle-grid:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: var(--color-1);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 #etch-canvas-container {
@@ -192,6 +254,7 @@ div#canvas {
   width: 500px;
   display: flex;
   flex-flow: column wrap;
+  background-color: var(--color-1);
 }
 
 div.canvas-tile {
@@ -200,6 +263,10 @@ div.canvas-tile {
 
 div.canvas-tile:hover {
   background-color: var(--hover-color);
+}
+
+.grid-line {
+  border: 1px solid var(--color-1);
 }
 
 /* canvas size from 1x1 to 64x64 */
