@@ -10,6 +10,9 @@ const isDrawPen = document.getElementById("draw");
 const isDeletePen = document.getElementById("delete");
 const isRainbowPen = document.getElementById("rainbow");
 const toggleGrid = document.getElementById("toggle-grid");
+const clear = document.getElementById("clear");
+
+// const etchMenu = document.getElementById("etch-menu-container");
 
 // Event listeners
 
@@ -19,6 +22,10 @@ body.addEventListener("mouseup", (event) => stopDrawing(event));
 body.addEventListener("mousedown", drawHandler);
 drawingOption.addEventListener("click", (event) => colorOptionHandler(event));
 toggleGrid.addEventListener("click", addGridLine);
+clear.addEventListener("click", () => {
+  const tile = document.querySelectorAll(".canvas-tile");
+  tile.forEach((tile) => (tile.style.backgroundColor = erasePen()));
+});
 
 // Mouse behaviors functions
 
