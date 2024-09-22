@@ -1,74 +1,78 @@
-const DEFAULT_VALUE = 16;
+const DEFAULT_CANVAS_SIZE = 16;
 
 // DOM elements
-const resizerLabel = document.getElementById("size-label");
-const resizer = document.getElementById("canvas-size");
-const colorPicker = document.getElementById("color-picker");
-const body = document.body;
-const drawingOption = document.getElementById("drawing-option");
-const isDrawPen = document.getElementById("draw");
-const isDeletePen = document.getElementById("delete");
-const isRainbowPen = document.getElementById("rainbow");
-const toggleGrid = document.getElementById("toggle-grid");
-const clear = document.getElementById("clear");
-
-// const etchMenu = document.getElementById("etch-menu-container");
+const canvasSizeInput = document.getElementById("canvas-size");
+const documentBody = document.body;
+const drawingOptionSelector = document.getElementById("drawing-option");
+const toggleGridCheckbox = document.getElementById("toggle-grid");
+const clearCanvasButton = document.getElementById("clear");
 
 // Event listeners
 
-resizer.addEventListener("input", (event) => changeCanvas(event.target.value));
-body.addEventListener("mousedown", (event) => startDrawing(event));
-body.addEventListener("mouseup", (event) => stopDrawing(event));
-body.addEventListener("mousedown", drawHandler);
-drawingOption.addEventListener("click", (event) => colorOptionHandler(event));
-toggleGrid.addEventListener("click", addGridLine);
-clear.addEventListener("click", () => {
-  const tile = document.querySelectorAll(".canvas-tile");
-  tile.forEach((tile) => (tile.style.backgroundColor = erasePen()));
-});
+canvasSizeInput.addEventListener("input", (event) =>
+  handleCanvasResize(event.target.value)
+);
+documentBody.addEventListener("mousedown", (event) =>
+  onMouseDownStartDrawing(event)
+);
+documentBody.addEventListener("mouseup", (event) =>
+  onMouseUpStopDrawing(event)
+);
+documentBody.addEventListener("mousedown", handleDrawing);
+drawingOptionSelector.addEventListener("click", (event) =>
+  handlePenOptionChange(event)
+);
+toggleGridCheckbox.addEventListener("click", toggleGridLines);
+clearCanvasButton.addEventListener("click", resetTileColors);
 
 // Mouse behaviors functions
 
 function fillTile(event) {
-  if (isDrawPen.checked === true) {
-    event.target.style.backgroundColor = normalPen();
-  } else if (isDeletePen.checked === true) {
-    event.target.style.backgroundColor = erasePen();
-  } else if (isRainbowPen.checked === true) {
-    let rainbowColor = rainbowColorPen();
+  const drawPen = document.getElementById("draw");
+  const deletePen = document.getElementById("delete");
+  const rainbowPen = document.getElementById("rainbow");
+  const colorPicker = document.getElementById("color-picker");
+
+  if (drawPen.checked === true) {
+    event.target.style.backgroundColor = getSelectedColor();
+  } else if (deletePen.checked === true) {
+    event.target.style.backgroundColor = getEraseColor();
+  } else if (rainbowPen.checked === true) {
+    const rainbowColor = getRandomRainbowColor();
     event.target.style.backgroundColor = rainbowColor;
     colorPicker.setAttribute("value", `${rainbowColor}`);
   }
 }
 
-function drawHandler(event) {
+function handleDrawing(event) {
   if (event.target.classList.contains("canvas-tile")) {
     fillTile(event);
   }
 }
 
-function startDrawing() {
-  body.addEventListener("mouseover", drawHandler);
+function onMouseDownStartDrawing() {
+  documentBody.addEventListener("mouseover", handleDrawing);
   console.log("start drawing");
 }
 
-function stopDrawing() {
-  body.removeEventListener("mouseover", drawHandler);
+function onMouseUpStopDrawing() {
+  documentBody.removeEventListener("mouseover", handleDrawing);
   console.log("stop drawing");
 }
 
 // Pen options
 
-function normalPen() {
+function getSelectedColor() {
+  const colorPicker = document.getElementById("color-picker");
   return colorPicker.value;
 }
 
-function erasePen() {
-  let eraseColor = "#eeeeee";
+function getEraseColor() {
+  const eraseColor = "#eeeeee";
   return eraseColor;
 }
 
-function rainbowColorPen() {
+function getRandomRainbowColor() {
   const rainbowColors = [
     "#FF0000", // Red
     "#FF7F00", // Orange
@@ -78,22 +82,24 @@ function rainbowColorPen() {
     "#4B0082", // Indigo
     "#8B00FF", // Violet
   ];
-  let randomNumber = Math.floor(Math.random() * rainbowColors.length);
-  let randomColor = rainbowColors[randomNumber];
-  return randomColor;
+  const randomIndex = Math.floor(Math.random() * rainbowColors.length);
+  return rainbowColors[randomIndex];
 }
 
-function colorOptionHandler(event) {
-  isDrawPen.checked = false;
-  isDeletePen.checked = false;
-  isRainbowPen.checked = false;
+function handlePenOptionChange(event) {
+  const drawPen = document.getElementById("draw");
+  const deletePen = document.getElementById("delete");
+  const rainbowPen = document.getElementById("rainbow");
+  drawPen.checked = false;
+  deletePen.checked = false;
+  rainbowPen.checked = false;
 
   if (event.target.id === "draw") {
-    isDrawPen.checked = true;
+    drawPen.checked = true;
   } else if (event.target.id === "delete") {
-    isDeletePen.checked = true;
+    deletePen.checked = true;
   } else if (event.target.id === "rainbow") {
-    isRainbowPen.checked = true;
+    rainbowPen.checked = true;
   } else {
     console.log("Invalid choice");
     return;
@@ -102,52 +108,53 @@ function colorOptionHandler(event) {
 
 // Canvas & Tiles functions
 
-function defaultCanvas(defaultValue) {
-  changeResizerLabel(defaultValue);
-  createNewTiles(defaultValue);
+function initializeCanvas(defaultValue) {
+  updateCanvasSizeLabel(defaultValue);
+  generateCanvasTiles(defaultValue);
 }
 
-function changeCanvas(sizeValue) {
-  changeResizerLabel(sizeValue);
-  clearCanvas();
-  createNewTiles(sizeValue);
+function handleCanvasResize(sizeValue) {
+  updateCanvasSizeLabel(sizeValue);
+  resetCanvasTiles();
+  generateCanvasTiles(sizeValue);
 }
 
-function clearCanvas() {
-  while (canvas.firstChild) {
-    canvas.firstChild.remove();
-  }
-  // canvas.innerHTML = "";
+function resetCanvasTiles() {
+  canvas.innerHTML = "";
 }
 
-function changeResizerLabel(sizeValue) {
-  resizerLabel.textContent = `Size: ${sizeValue} X ${sizeValue}`;
+function resetTileColors() {
+  const canvastiles = document.querySelectorAll(".canvas-tile");
+  canvastiles.forEach((tile) => (tile.style.backgroundColor = getEraseColor()));
 }
 
-function createNewTiles(sizeValue) {
-  let totalTiles = sizeValue * sizeValue;
+function updateCanvasSizeLabel(sizeValue) {
+  const resizerLabel = document.getElementById("size-label");
+  resizerLabel.textContent = `Size: ${sizeValue} x ${sizeValue}`;
+}
+
+function generateCanvasTiles(sizeValue) {
+  const totalTiles = sizeValue * sizeValue;
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < totalTiles; i++) {
     const newCanvasTile = document.createElement("div");
-    newCanvasTile.classList.add(
-      "canvas-tile",
-      `canvas-size-${sizeValue}x${sizeValue}`
-    );
+    newCanvasTile.classList.add("canvas-tile");
+    newCanvasTile.setAttribute("style", `flex: 1 1 calc(100% / ${sizeValue});`);
     fragment.appendChild(newCanvasTile);
   }
   canvas.appendChild(fragment);
-  addGridLine();
+  toggleGridLines();
 }
 
-function addGridLine() {
-  const tile = document.querySelectorAll(".canvas-tile");
-  if (toggleGrid.checked === true) {
-    tile.forEach((tile) => tile.classList.add("grid-line"));
+function toggleGridLines() {
+  const tiles = document.querySelectorAll(".canvas-tile");
+  if (toggleGridCheckbox.checked === true) {
+    tiles.forEach((tile) => tile.classList.add("grid-line"));
   } else {
-    tile.forEach((tile) => tile.classList.remove("grid-line"));
+    tiles.forEach((tile) => tile.classList.remove("grid-line"));
   }
 }
 
-// Function invokes
+// Function invocation
 
-defaultCanvas(DEFAULT_VALUE);
+initializeCanvas(DEFAULT_CANVAS_SIZE);
