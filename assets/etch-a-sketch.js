@@ -52,12 +52,10 @@ function handleDrawing(event) {
 
 function onMouseDownStartDrawing() {
   documentBody.addEventListener("mouseover", handleDrawing);
-  console.log("start drawing");
 }
 
 function onMouseUpStopDrawing() {
   documentBody.removeEventListener("mouseover", handleDrawing);
-  console.log("stop drawing");
 }
 
 // Pen options
@@ -100,9 +98,6 @@ function handlePenOptionChange(event) {
     deletePen.checked = true;
   } else if (event.target.id === "rainbow") {
     rainbowPen.checked = true;
-  } else {
-    console.log("Invalid choice");
-    return;
   }
 }
 

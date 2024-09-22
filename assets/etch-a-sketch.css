@@ -250,7 +250,7 @@ div#canvas {
   width: 500px;
   display: flex;
   flex-flow: column wrap;
-  background-color: var(--color-1);
+  background-color: var(--color-4);
 }
 
 div.canvas-tile {
