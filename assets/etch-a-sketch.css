@@ -1,8 +1,8 @@
 :root {
   /* font size */
-  --lrg-fs: 3em;
-  --med-fs: 2em;
-  --sml-fs: 1em;
+  --lrg-fs: 3rem;
+  --med-fs: 2rem;
+  --sml-fs: 1rem;
 
   /* Color */
   --color-1: #222831;
